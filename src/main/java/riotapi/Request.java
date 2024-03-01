@@ -1,5 +1,6 @@
 package main.java.riotapi;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,7 +34,7 @@ public class Request {
             StringBuilder response = new StringBuilder();
 
             String line;
-            while ((line = rd.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(rd, 5_000_000)) != null) {
                 response.append(line);
                 response.append('\r');
             }
