@@ -120,14 +120,14 @@ public class DefaultRateLimitHandler implements RateLimitHandler {
 		}
 
 		public void setRateLimit(Platform platform, String service, String method, String type, int retryAfter) {
-			if (type.equals("application")) {
+			if ("application".equals(type)) {
 				applicationLimits.put(platform, new RateLimit(type, retryAfter));
-			} else if (type.equals("service")) {
+			} else if ("service".equals(type)) {
 				if (!serviceLimits.containsKey(platform)) {
 					serviceLimits.put(platform, new ConcurrentHashMap<String, RateLimit>());
 				}
 				serviceLimits.get(platform).put(service, new RateLimit(type, retryAfter));
-			} else if (type.equals("method")) {
+			} else if ("method".equals(type)) {
 				if (!methodLimits.containsKey(platform)) {
 					methodLimits.put(platform, new ConcurrentHashMap<String, RateLimit>());
 				}
