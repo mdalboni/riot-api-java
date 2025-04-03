@@ -16,6 +16,8 @@
 
 package net.rithms.riot.api.request;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -133,7 +135,7 @@ public class Request {
 				config.getRateLimitHandler().onRequestAboutToFire(this);
 			}
 
-			URL url = new URL(object.getUrl());
+			URL url = Urls.create(object.getUrl(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 			connection = (HttpURLConnection) url.openConnection();
 			setTimeout();
 			connection.setDoInput(true);
